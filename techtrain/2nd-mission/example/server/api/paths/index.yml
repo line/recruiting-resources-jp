@@ -1,0 +1,4 @@
+/v1/{userID}/todo-list:
+  $ref: ./list.yml
+/v1/{userID}/todo-list/{id}:
+  $ref: ./todo.yml

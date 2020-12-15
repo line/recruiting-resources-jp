@@ -1,0 +1,11 @@
+# config example
+server:
+    port: "3000"
+    loglevel: "debug" #debug, info, warn, error
+mysql:
+    endpoint: ""
+    username: "todo"
+    password: "todoapi"
+    db: "todo"
+schemaFile: "server/api/schema.json"
+lineAPI: "https://api.line.me/v2"

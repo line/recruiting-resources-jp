@@ -1,0 +1,58 @@
+get:
+  summary: /v1/{userID}/todo-list
+  description: fetches todo list
+  parameters:
+    - in: path
+      name: userID
+      required: true
+      type: string
+      description: user id
+  responses:
+    200:
+      description: OK
+      schema:
+        type: object
+        properties:
+          list:
+            type: array
+            items:
+              $ref: "#/definitions/todo"
+      examples:
+        application/json:
+          list:
+            - id: "xxxx-xxxx-xxx"
+              title: "todo test"
+              description: "test"
+post:
+  summary: /v1/{userID}/todo-list
+  description: Creates a todo item
+  parameters:
+    - in: body
+      schema:
+        type: object
+        required:
+          - title
+        properties:
+          tile:
+            type: string
+            maxLength: 100
+            description: todo title.
+          description:
+            type: string
+            maxLength: 1000
+  responses:
+    201:
+      description: OK
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+            description: todo item id
+      examples:
+        application/json:
+          id: xxx-xxx-xxx
+    400:
+      description: Invalid input
+      schema:
+        $ref: "#/definitions/Error"

@@ -1,0 +1,101 @@
+get:
+  summary: /v1/{userID}/todo-list/{id}
+  description: fetches a todo item by id
+  parameters:
+    - in: path
+      name: userID
+      required: true
+      type: string
+      description: user id
+    - in: path
+      name: id 
+      required: true
+      type: string
+      description: todo item id
+  responses:
+    200:
+      description: OK
+      schema:
+        $ref: "#/definitions/todo"
+      examples:
+        application/json:
+          id: "xxx-xxx-xxx"
+          title: "test"
+          description: "test"
+    404:
+      description: Not Found
+      schema:
+        $ref: "#/definitions/Error"
+delete:
+  summary: /v1/{userID}/todo-list/{id}
+  description: deletes a todo item by id
+  parameters:
+    - in: path
+      name: userID
+      required: true
+      type: string
+      description: user id
+    - in: path
+      name: id 
+      required: true
+      type: string
+      description: todo item id
+  responses:
+    200:
+      description: OK
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+      examples:
+        application/json:
+          id: "xxx-xxx-xxx"
+          title: "test"
+          description: "test"
+    404:
+      description: Not Found
+      schema:
+        $ref: "#/definitions/Error"
+put:
+  summary: /v1/{userID}/todo-list/{id}
+  description: update a todo item by id
+  parameters:
+    - in: path
+      name: userID
+      required: true
+      type: string
+      description: user id
+    - in: path
+      name: id 
+      required: true
+      type: string
+      description: todo item id
+    - in: body
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+          finished:
+            type: boolean
+  responses:
+    200:
+      description: OK
+      schema:
+        $ref: "#/definitions/todo"
+      examples:
+        application/json:
+          id: "xxx-xxx-xxx"
+          title: "test"
+          description: "test"
+    400:
+      description: Invalid input
+      schema:
+        $ref: "#/definitions/Error"
+    404:
+      description: Not Found
+      schema:
+        $ref: "#/definitions/Error"

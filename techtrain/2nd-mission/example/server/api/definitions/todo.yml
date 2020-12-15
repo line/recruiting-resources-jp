@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: string
+    description: item ID
+  user_id:
+    type: string
+    description: item ID
+  title:
+    type: string
+    description: todo title
+  description:
+    type: string
+  finished:
+    type: boolean
+  created_at:
+    type: string
+    description: created time(UTC), YY-mm-DDTHH:MM:SSZ
+  updated_at:
+    type: string
+    description: updated time(UTC), YY-mm-DDTHH:MM:SSZ

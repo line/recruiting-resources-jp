@@ -1,0 +1,320 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Todo Schedule API",
+    "version": "1"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Access-Token",
+      "description": "LINE token"
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "host": "intern-todo-api.linecorp-dev.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/todo/{userID}": {
+      "get": {
+        "summary": "/v1/todo/{userID}",
+        "description": "fetches todo list",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userID",
+            "required": true,
+            "type": "string",
+            "description": "user id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "list": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/todo"
+                  }
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "list": [
+                  {
+                    "id": "xxxx-xxxx-xxx",
+                    "title": "todo test",
+                    "description": "test"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "/v1/todo/{userID}",
+        "description": "Creates a todo item",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "tile": {
+                  "type": "string",
+                  "maxLength": 100,
+                  "description": "todo title."
+                },
+                "description": {
+                  "type": "string",
+                  "maxLength": 1000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "todo item id"
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "id": "xxx-xxx-xxx"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/todo/{userID}/{id}": {
+      "get": {
+        "summary": "/v1/todo/{userID}/{id}",
+        "description": "fetches a todo item by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userID",
+            "required": true,
+            "type": "string",
+            "description": "user id"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "todo item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/todo"
+            },
+            "examples": {
+              "application/json": {
+                "id": "xxx-xxx-xxx",
+                "title": "test",
+                "description": "test"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "/v1/todo/{userID}/{id}",
+        "description": "deletes a todo item by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userID",
+            "required": true,
+            "type": "string",
+            "description": "user id"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "todo item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "id": "xxx-xxx-xxx",
+                "title": "test",
+                "description": "test"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "/v1/todo/{userID}/{id}",
+        "description": "update a todo item by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userID",
+            "required": true,
+            "type": "string",
+            "description": "user id"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "todo item id"
+          },
+          {
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "finished": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/todo"
+            },
+            "examples": {
+              "application/json": {
+                "id": "xxx-xxx-xxx",
+                "title": "test",
+                "description": "test"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "todo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "item ID"
+        },
+        "user_id": {
+          "type": "string",
+          "description": "item ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "todo title"
+        },
+        "description": {
+          "type": "string"
+        },
+        "finished": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string",
+          "description": "created time(UTC), YY-mm-DDTHH:MM:SSZ"
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "updated time(UTC), YY-mm-DDTHH:MM:SSZ"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "errMsg": {
+          "type": "string",
+          "description": "error message"
+        }
+      }
+    }
+  }
+}
