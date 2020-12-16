@@ -23,7 +23,7 @@
       "ApiKeyAuth": []
     }
   ],
-  "host": "intern-todo-api.linecorp-dev.com",
+  "host": "api.example.com",
   "schemes": [
     "https"
   ],
